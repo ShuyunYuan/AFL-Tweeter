@@ -284,7 +284,7 @@ int checkHeader(char *text) {//check quotes and remove possible quotes
         text[len - 1] = '\0';
         len = len - 1;
     }
-    printf("%c %c\n", text[0], text[strlen(text) - 1]);
+    //printf("%c %c\n", text[0], text[strlen(text) - 1]);
     if (text[0] == '\'' || text[0] == '"' || text[len - 1] == '\'' || text[len - 1] == '"') {
 
         if (text[len - 1] != text[0] || len < 2) {
@@ -350,7 +350,7 @@ int main(int argc, char const *argv[]) {
     char tail[5];
     strncpy(tail, &str[strlen(str) - 4], 4);
     tail[4] = '\0';
-    printf("%s\n", tail);
+    //printf("%s\n", tail);
     if (strcmp(tail, ".csv") != 0) {
         printf("Invalid Input Format: Not a CSV file\n");
         exit(1);
@@ -376,13 +376,13 @@ int main(int argc, char const *argv[]) {
     int tweeter_count = 0;
     while (fgets(buf, 1025, fp)) {
         //check length of each line, must less or equal to 1024
-        printf("%d\n", strlen(buf));
+        //printf("%d\n", strlen(buf));
         if (strlen(buf) > 1024) {
             printf("Invalid Input Format: Too many characters in one line \n");
             exit(1);
         }
         if (strcmp(buf, "\n") == 0) {
-            printf("empty line, go to a new line\n");
+            //printf("empty line, go to a new line\n");
             continue;
         }
 
@@ -411,7 +411,7 @@ int main(int argc, char const *argv[]) {
                     }
                     ht_set(headertable, text, field_count);
                     column[field_count] = quote;
-                    printf("header: %s, quote: %d\n", text, column[field_count]);
+                    //printf("header: %s, quote: %d\n", text, column[field_count]);
                 }
                 field = zStrtok(NULL, ",");
                 field_count++;
@@ -441,10 +441,12 @@ int main(int argc, char const *argv[]) {
                     //printf("Tweeter Name:\t");
                     //printf("%s\n", text);
                     int value = 0;
-                    if (ht_get(hashtable, text) >= 0) //firstly meet this name
+                    if (ht_get(hashtable, text) >= 0) //already met this name
                         value = ht_get(hashtable, text);
+                    else
+                        tweeter_count++;
                     ht_set(hashtable, text, value + 1);
-                    tweeter_count++;
+                    
                     //printf("%d\n", value);
                     //printf("%d\n", ht_get(hashtable, text));
                 }
@@ -453,7 +455,7 @@ int main(int argc, char const *argv[]) {
             }
         }
     }
-    display(hashtable);
+    //display(hashtable);
 
     fclose(fp);
 
