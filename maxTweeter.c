@@ -339,11 +339,16 @@ int checkQuote(char *text, int quote) {
 int main(int argc, char const *argv[]) {
     char str[20];
     //get input csv filename
-    printf("Please input csv file name. \n");
-    while (scanf("%s", str) != 1) {
-        printf("Please input csv file name.\n");
-        scanf("%s", str);
+    if(argc < 2) {
+        printf("Please input csv file name. \n");
+        while (scanf("%s", str) != 1) {
+            printf("Please input csv file name.\n");
+            scanf("%s", str);
+        }
+    } else {
+        strcpy(str, argv[1]);    
     }
+        
     printf("File name: %s\n", str);
 
     //check whether input name is a ".csv" file
